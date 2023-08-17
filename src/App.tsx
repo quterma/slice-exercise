@@ -1,7 +1,9 @@
+import { Table } from "./components/table/table";
+
 export const App = () => {
   return (
-    <div className="App">
-      App
+    <div>
+      <Table />
     </div>
   );
 }

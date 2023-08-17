@@ -7,7 +7,7 @@ type Props = {};
 export const Table = (props: Props) => {
     const [pageNumber, setPageNumber] = useState(0);
 
-    const { dataList, hasMore, loading, error } = useDataLoad(pageNumber);
+    const { dataList, hasMore, loading, error } = useDataLoad(pageNumber, 10);
 
     const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -38,6 +38,7 @@ export const Table = (props: Props) => {
                 ))}
             </ul>
             {loading && <div>... loading ...</div>}
+            {hasMore === false && <div>... There is no more items ...</div>}
             {error && <div>... error ...</div>}
         </div>
     );

@@ -5,24 +5,22 @@ export const useDataLoad = (pageNumber: number, limit: number = 40) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [dataList, setDataList] = useState<TableRow[]>([]);
-    const [hasMore, setHasMore] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
 
     useEffect(() => {
-        if (dataList.length >= (pageNumber + 1) * limit) return;
-
         setLoading(true);
         setError(false);
 
         getDataSlice(pageNumber, limit)
             .then(res => {
-                setDataList(prevDataList => [...prevDataList, ...res]);
+                setDataList(currentValue => [...currentValue, ...res]);
                 setHasMore(res.length > 0);
                 setLoading(false);
             })
             .catch(() => {
                 setError(true);
             });
-    }, [pageNumber, limit, dataList.length]);
+    }, [pageNumber, limit]);
 
     return { loading, error, dataList, hasMore };
 };
