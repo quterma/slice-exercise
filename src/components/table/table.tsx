@@ -34,7 +34,9 @@ export const Table = (props: Props) => {
         <div className="">
             <ul>
                 {dataList.map((item, i) => (
-                    <TableItem key={item.id} data={item} ref={i === dataList.length - 5 ? lastItemRef : null} />
+                    <ul key={item.id}>
+                        <TableItem data={item} ref={i === dataList.length - 5 ? lastItemRef : null} />
+                    </ul>
                 ))}
             </ul>
             {loading && <div>... loading ...</div>}
