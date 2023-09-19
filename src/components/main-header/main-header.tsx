@@ -10,6 +10,13 @@ type Props = {
   };
 };
 
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e7e6e4;
+`;
+
 const Title = styled.h1`
   font-family: Inter;
   font-size: 20px;
@@ -24,10 +31,10 @@ export const MainHeader = ({
   button: { ButtonIcon, buttonTitle, handleClick },
 }: Props) => {
   return (
-    <div className="">
+    <Container>
       <Title>{title}</Title>
       {<ButtonIcon />}
       {buttonTitle}
-    </div>
+    </Container>
   );
 };

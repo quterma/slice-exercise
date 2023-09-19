@@ -5,43 +5,46 @@ import { TableItem } from "./table-item";
 type Props = {};
 
 export const Table = (props: Props) => {
-    const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(0);
 
-    const { dataList, hasMore, loading, error } = useDataLoad(pageNumber, 10);
+  const { dataList, hasMore, loading, error } = useDataLoad(pageNumber, 10);
 
-    const observerRef = useRef<IntersectionObserver | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
-    const lastItemRef = useCallback(
-        (node: HTMLDivElement | null) => {
-            if (loading) return;
-            if (observerRef.current) observerRef.current.disconnect();
+  const lastItemRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (loading) return;
+      if (observerRef.current) observerRef.current.disconnect();
 
-            observerRef.current = new IntersectionObserver(
-                entries => {
-                    if (entries[0].isIntersecting && hasMore) {
-                        setPageNumber(prevPageNumber => prevPageNumber + 1);
-                    }
-                },
-                { threshold: 0.5 }
-            );
-
-            if (node) observerRef.current.observe(node);
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore) {
+            setPageNumber((prevPageNumber) => prevPageNumber + 1);
+          }
         },
-        [loading, hasMore]
-    );
+        { threshold: 0.5 }
+      );
 
-    return (
-        <div className="">
-            <ul>
-                {dataList.map((item, i) => (
-                    <ul key={item.id}>
-                        <TableItem data={item} ref={i === dataList.length - 5 ? lastItemRef : null} />
-                    </ul>
-                ))}
-            </ul>
-            {loading && <div>... loading ...</div>}
-            {hasMore === false && <div>... There is no more items ...</div>}
-            {error && <div>... error ...</div>}
-        </div>
-    );
+      if (node) observerRef.current.observe(node);
+    },
+    [loading, hasMore]
+  );
+
+  return (
+    <div className="">
+      <ul>
+        {dataList.map((item, i) => (
+          <ul key={item.id}>
+            <TableItem
+              data={item}
+              ref={i === dataList.length - 5 ? lastItemRef : null}
+            />
+          </ul>
+        ))}
+      </ul>
+      {loading && <div>... loading ...</div>}
+      {hasMore === false && <div>... There is no more items ...</div>}
+      {error && <div>... error ...</div>}
+    </div>
+  );
 };

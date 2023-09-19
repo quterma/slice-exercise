@@ -17,7 +17,7 @@ export const App = () => {
         button={{
           ButtonIcon,
           buttonTitle: "Create New",
-          handleClick: function (): void {
+          handleClick: function(): void {
             throw new Error("Function not implemented.");
           },
         }}
