@@ -1,5 +1,6 @@
 import { FunctionComponent, SVGProps } from "react";
 import styled from "styled-components";
+import { Button, constants } from "../shared/styled";
 
 type Props = {
   title: string;
@@ -14,27 +15,32 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #e7e6e4;
+  border-bottom: 1px solid ${constants.main.grey};
+  padding: 16px 32px;
 `;
 
 const Title = styled.h1`
-  font-family: Inter;
+  font-family: ${constants.fonts.inter};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
   letter-spacing: -0.01em;
   text-align: left;
+  color: ${constants.main.blue};
+  margin: 0;
 `;
 
-export const MainHeader = ({
+export const TableHeader = ({
   title,
   button: { ButtonIcon, buttonTitle, handleClick },
 }: Props) => {
   return (
     <Container>
       <Title>{title}</Title>
-      {<ButtonIcon />}
-      {buttonTitle}
+      <Button $primary onClick={handleClick}>
+        {<ButtonIcon />}
+        {buttonTitle}
+      </Button>
     </Container>
   );
 };

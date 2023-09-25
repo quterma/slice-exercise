@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { ReactComponent as ButtonIcon } from "./assets/button-icon.svg";
 import { Table } from "./components/table/table";
-import { MainHeader } from "./components/main-header/main-header";
+import { TableHeader } from "./components/table/table-header";
 
 const Main = styled.main`
   display: flex;
@@ -12,14 +12,12 @@ const Main = styled.main`
 export const App = () => {
   return (
     <Main>
-      <MainHeader
+      <TableHeader
         title={"Certificates"}
         button={{
           ButtonIcon,
           buttonTitle: "Create New",
-          handleClick: function(): void {
-            throw new Error("Function not implemented.");
-          },
+          handleClick: () => console.log("clicked"),
         }}
       />
       <Table />
