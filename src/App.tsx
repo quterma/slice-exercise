@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { ReactComponent as ButtonIcon } from "./assets/button-icon.svg";
 import { Table } from "./components/table/table";
 import { TableHeader } from "./components/table/table-header";
+import { tabConfig } from "./tab-config";
 
 const Main = styled.main`
   display: flex;
@@ -12,14 +12,7 @@ const Main = styled.main`
 export const App = () => {
   return (
     <Main>
-      <TableHeader
-        title={"Certificates"}
-        button={{
-          ButtonIcon,
-          buttonTitle: "Create New",
-          handleClick: () => console.log("clicked"),
-        }}
-      />
+      <TableHeader {...tabConfig.certificates} />
       <Table />
     </Main>
   );
