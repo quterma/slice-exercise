@@ -2,15 +2,6 @@ import { FunctionComponent, SVGProps } from "react";
 import styled from "styled-components";
 import { Button, constants } from "../shared/styled";
 
-type Props = {
-  title: string;
-  button: {
-    ButtonIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
-    buttonTitle: string;
-    handleClick: () => void;
-  };
-};
-
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -30,17 +21,28 @@ const Title = styled.h1`
   margin: 0;
 `;
 
-export const TableHeader = ({
-  title,
-  button: { ButtonIcon, buttonTitle, handleClick },
-}: Props) => {
+export type HeaderButton = {
+  ButtonIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
+  buttonTitle: string;
+  handleClick: () => void;
+};
+
+type Props = {
+  title: string;
+  button: HeaderButton | null;
+};
+export const TableHeader = ({ title, button }: Props) => {
+  const headerButton = button ? (
+    <Button $primary onClick={button.handleClick}>
+      {<button.ButtonIcon />}
+      {button.buttonTitle}
+    </Button>
+  ) : null;
+
   return (
     <Container>
       <Title>{title}</Title>
-      <Button $primary onClick={handleClick}>
-        {<ButtonIcon />}
-        {buttonTitle}
-      </Button>
+      {headerButton}
     </Container>
   );
 };
