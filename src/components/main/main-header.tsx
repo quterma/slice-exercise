@@ -31,7 +31,8 @@ type Props = {
   title: string;
   button: HeaderButton | null;
 };
-export const TableHeader = ({ title, button }: Props) => {
+
+export const MainHeader = ({ title, button }: Props) => {
   const headerButton = button ? (
     <Button $primary onClick={button.handleClick}>
       {<button.ButtonIcon />}

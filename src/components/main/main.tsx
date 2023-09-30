@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { Table } from "../table/table";
-import { TableHeader } from "../table/table-header";
+import { MainHeader } from "./main-header";
 import { Tabs, tabConfig } from "../../tab-config";
 
 const Container = styled.main`
@@ -14,10 +14,15 @@ type Props = {
 };
 
 export const Main = ({ tab }: Props) => {
+  const { title, button, contentType } = tabConfig[tab];
+
+  let content = null;
+  if (contentType === "table") content = <Table tab={tab} />;
+
   return (
     <Container>
-      <TableHeader {...tabConfig[tab]} />
-      <Table />
+      <MainHeader {...{ title, button }} />
+      {content}
     </Container>
   );
 };
