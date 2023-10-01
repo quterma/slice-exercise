@@ -1,30 +1,15 @@
 import { useState, useRef, useCallback } from "react";
 import { useDataLoad } from "../../hooks/useDataLoad";
 import { Tabs, tableHeaders } from "../../tab-config";
-import styled from "styled-components";
-import { constants } from "../shared/styled";
-
-const Grid = styled.div<{ cols: number }>`
-  display: grid;
-  grid-template-columns: repeat(${({ cols }) => cols}, 1fr);
-`;
-
-const HeaderSpan = styled.span`
-  padding: 8px 16px;
-  background: ${constants.main.tableHeaderBG};
-  text-transform: uppercase;
-  font-family: "Inter";
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 15px;
-  letter-spacing: 0px;
-  text-align: left;
-  color: ${constants.main.tableHeaderText};
-`;
-
-const TableSpan = styled.span`
-  padding: 8px 16px;
-`;
+import {
+  Grid,
+  HeaderCell,
+  HeaderText,
+  StatusText,
+  TableCell,
+  TableText,
+} from "./styled";
+import { Statuses } from "../../api/api-service";
 
 type Props = {
   tab: Tabs;
@@ -60,19 +45,30 @@ export const Table = ({ tab }: Props) => {
     return <div>There is no header for current table!</div>;
 
   const headerSpans = tableHeaders[tab]!.map((title) => (
-    <HeaderSpan key={title}>{title}</HeaderSpan>
+    <HeaderCell key={title}>
+      <HeaderText>{title}</HeaderText>
+    </HeaderCell>
   ));
 
   const tableSpans = dataList
     .map((dataRow, i) =>
-      tableHeaders[tab]!.map((title, j) => (
-        <TableSpan
-          key={title + dataRow.id}
-          ref={i === dataList.length - 5 && j === 0 ? lastItemRef : null}
-        >
-          {dataRow[title]}
-        </TableSpan>
-      ))
+      tableHeaders[tab]!.map((title, j) => {
+        const key = title + dataRow.id;
+        const ref = i === dataList.length - 5 && j === 0 ? lastItemRef : null;
+        const data = dataRow[title];
+
+        return (
+          <TableCell key={key}>
+            {title === "status" ? (
+              <StatusText ref={ref} $status={data as Statuses}>
+                {data}
+              </StatusText>
+            ) : (
+              <TableText ref={ref}>{data}</TableText>
+            )}
+          </TableCell>
+        );
+      })
     )
     .flat();
 

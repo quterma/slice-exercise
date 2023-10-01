@@ -10,6 +10,7 @@ export const constants = {
     grey: "#e7e6e4",
     tableHeaderBG: "#FAFAFA",
     tableHeaderText: "#787e8b",
+    tableText: "#2E323E",
   },
   fonts: {
     inter: "Inter",
