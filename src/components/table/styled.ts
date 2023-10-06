@@ -11,7 +11,7 @@ const Cell = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  padding: 8px 16px;
+  padding: 12px 10px;
 `;
 
 export const HeaderCell = styled(Cell)`
@@ -22,13 +22,25 @@ export const TableCell = styled(Cell)`
   border-bottom: 1px solid ${constants.main.grey};
 `;
 
+export const InnerCell = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 4px 0;
+`;
+
+export const InnerStatusCell = styled(InnerCell)<{ $status: Statuses }>`
+  gap: 8px;
+  padding: 4px 8px;
+  background-color: ${({ $status }) => constants.statusColors[$status].bg};
+  border-radius: 4px;
+`;
+
 const CellText = styled.p`
   font-family: ${constants.fonts.inter};
   font-weight: 500;
   white-space: nowrap;
   margin: 0;
-  padding: 4px 8px;
-  text-transform: capitalize;
 `;
 
 export const HeaderText = styled(CellText)`
@@ -38,33 +50,18 @@ export const HeaderText = styled(CellText)`
 `;
 
 export const TableText = styled(CellText)`
+  text-transform: capitalize;
   color: ${constants.main.tableText};
   font-size: 14px;
 `;
 
-const statusColors: Record<Statuses, { color: string; bg: string }> = {
-  "Pending Signatures": {
-    color: "#9D664E",
-    bg: "#FEBA9D",
-  },
-  "Approved By Corp.": {
-    color: "#B98B00",
-    bg: "#FFD489",
-  },
-  Offered: {
-    color: "#273E9A",
-    bg: "#C5D9FC",
-  },
-};
-
 export const StatusText = styled(TableText)<{ $status: Statuses }>`
-  color: ${({ $status }) => statusColors[$status].color};
-  background-color: ${({ $status }) => statusColors[$status].bg};
-  border-radius: 4px;
+  color: ${({ $status }) => constants.statusColors[$status].color};
+`;
 
-  &:before {
-    content: "";
-    border: 2px solid ${({ $status }) => statusColors[$status].color};
-    margin-right: 5px;
-  }
+export const StatusDot = styled.div<{ $status: Statuses }>`
+  background-color: ${({ $status }) => constants.statusColors[$status].color};
+  border-radius: 2px;
+  width: 6px;
+  height: 6px;
 `;

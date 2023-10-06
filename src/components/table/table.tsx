@@ -1,15 +1,13 @@
 import { useState, useRef, useCallback } from "react";
 import { useDataLoad } from "../../hooks/useDataLoad";
 import { Tabs, tableHeaders } from "../../tab-config";
-import {
-  Grid,
-  HeaderCell,
-  HeaderText,
-  StatusText,
-  TableCell,
-  TableText,
-} from "./styled";
+import { Grid } from "./styled";
 import { Statuses } from "../../api/api-service";
+import {
+  HeaderElement,
+  TableElement,
+  TableStatusElement,
+} from "./tableElements";
 
 type Props = {
   tab: Tabs;
@@ -44,29 +42,25 @@ export const Table = ({ tab }: Props) => {
   if (!tableHeaders[tab])
     return <div>There is no header for current table!</div>;
 
-  const headerSpans = tableHeaders[tab]!.map((title) => (
-    <HeaderCell key={title}>
-      <HeaderText>{title}</HeaderText>
-    </HeaderCell>
-  ));
-
-  const tableSpans = dataList
+  const tableElements = dataList
     .map((dataRow, i) =>
       tableHeaders[tab]!.map((title, j) => {
         const key = title + dataRow.id;
         const ref = i === dataList.length - 5 && j === 0 ? lastItemRef : null;
         const data = dataRow[title];
 
+        if (title === "status") {
+          return (
+            <TableStatusElement key={key} ref={ref} $status={data as Statuses}>
+              {data}
+            </TableStatusElement>
+          );
+        }
+
         return (
-          <TableCell key={key}>
-            {title === "status" ? (
-              <StatusText ref={ref} $status={data as Statuses}>
-                {data}
-              </StatusText>
-            ) : (
-              <TableText ref={ref}>{data}</TableText>
-            )}
-          </TableCell>
+          <TableElement key={key} ref={ref}>
+            {data}
+          </TableElement>
         );
       })
     )
@@ -75,8 +69,10 @@ export const Table = ({ tab }: Props) => {
   return (
     <>
       <Grid cols={tableHeaders[tab]!.length}>
-        {headerSpans}
-        {tableSpans}
+        {tableHeaders[tab]!.map((title) => (
+          <HeaderElement key={title}>{title}</HeaderElement>
+        ))}
+        {tableElements}
       </Grid>
       {loading && <div>... loading ...</div>}
       {hasMore === false && <div>... There is no more items ...</div>}

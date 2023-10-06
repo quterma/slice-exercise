@@ -1,6 +1,23 @@
 import styled from "styled-components";
+import { Statuses } from "../../api/api-service";
+
+const statusColors: Record<Statuses, { color: string; bg: string }> = {
+  "Pending Signatures": {
+    color: "#9D664E",
+    bg: "#FEBA9D",
+  },
+  "Approved By Corp.": {
+    color: "#B98B00",
+    bg: "#FFD489",
+  },
+  Offered: {
+    color: "#273E9A",
+    bg: "#C5D9FC",
+  },
+};
 
 export const constants = {
+  statusColors,
   button: {
     green: "#6CBE8C",
     white: "#FFFFFF",
