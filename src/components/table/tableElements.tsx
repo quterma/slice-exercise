@@ -1,10 +1,13 @@
 import { ForwardedRef, forwardRef } from "react";
 import { Statuses } from "../../api/api-service";
 import {
+  EmployeeAvatar,
+  EmployeeAvatarText,
   HeaderCell,
   HeaderText,
   InnerCell,
   InnerCertificateCell,
+  InnerEmployeeCell,
   InnerStatusCell,
   StatusDot,
   StatusText,
@@ -58,6 +61,26 @@ export const TableCertificateElement = forwardRef(
       <InnerCertificateCell>
         <TableText>{children}</TableText>
       </InnerCertificateCell>
+    </TableCell>
+  )
+);
+
+type EmployeeProps = {
+  index: number;
+  children: string;
+};
+export const TableEmployeeElement = forwardRef(
+  (
+    { children, index }: EmployeeProps,
+    ref: ForwardedRef<HTMLDivElement> | null
+  ) => (
+    <TableCell ref={ref}>
+      <InnerEmployeeCell>
+        <EmployeeAvatar index={index}>
+          <EmployeeAvatarText>FM</EmployeeAvatarText>
+        </EmployeeAvatar>
+        <TableText>{children}</TableText>
+      </InnerEmployeeCell>
     </TableCell>
   )
 );

@@ -36,6 +36,10 @@ export const InnerStatusCell = styled(InnerCell)<{ $status: Statuses }>`
   border-radius: 4px;
 `;
 
+export const InnerEmployeeCell = styled(InnerCell)`
+  gap: 10px;
+`;
+
 export const InnerCertificateCell = styled(InnerCell)`
   padding: 2px 8px;
   background-color: ${constants.main.grey};
@@ -61,6 +65,13 @@ export const TableText = styled(CellText)`
   font-size: 14px;
 `;
 
+export const EmployeeAvatarText = styled(CellText)`
+  text-transform: uppercase;
+  color: ${constants.main.tableText};
+  font-size: 12px;
+  font-weight: 600;
+`;
+
 export const StatusText = styled(TableText)<{ $status: Statuses }>`
   color: ${({ $status }) => constants.statusColors[$status].color};
 `;
@@ -70,4 +81,14 @@ export const StatusDot = styled.div<{ $status: Statuses }>`
   border-radius: 2px;
   width: 6px;
   height: 6px;
+`;
+
+export const EmployeeAvatar = styled.div<{ index: number }>`
+  background-color: ${({ index }) => constants.avatarColors[index].bg};
+  border: 1px solid ${({ index }) => constants.avatarColors[index].border};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  padding: 6px 4px;
 `;

@@ -16,8 +16,16 @@ const statusColors: Record<Statuses, { color: string; bg: string }> = {
   },
 };
 
+const avatarColors: { bg: string; border: string }[] = [
+  { bg: "#E6EBFF", border: "#D5DBE580" },
+  { bg: "#E9F4F1", border: "#D5DBE580" },
+  { bg: "#E1F3FF", border: "#D5DBE580" },
+  { bg: "#F6F9FE", border: "#D5DBE580" },
+];
+
 export const constants = {
   statusColors,
+  avatarColors,
   button: {
     green: "#6CBE8C",
     white: "#FFFFFF",

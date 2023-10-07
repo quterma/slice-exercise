@@ -7,6 +7,7 @@ import {
   HeaderElement,
   TableCertificateElement,
   TableElement,
+  TableEmployeeElement,
   TableStatusElement,
 } from "./tableElements";
 
@@ -63,6 +64,14 @@ export const Table = ({ tab }: Props) => {
             <TableCertificateElement key={key} ref={ref}>
               {data}
             </TableCertificateElement>
+          );
+        }
+
+        if (title === "employee") {
+          return (
+            <TableEmployeeElement key={key} ref={ref} index={i % 4}>
+              {data}
+            </TableEmployeeElement>
           );
         }
 
