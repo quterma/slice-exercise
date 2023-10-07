@@ -5,6 +5,7 @@ import { Grid } from "./styled";
 import { Statuses } from "../../api/api-service";
 import {
   HeaderElement,
+  TableCertificateElement,
   TableElement,
   TableStatusElement,
 } from "./tableElements";
@@ -54,6 +55,14 @@ export const Table = ({ tab }: Props) => {
             <TableStatusElement key={key} ref={ref} $status={data as Statuses}>
               {data}
             </TableStatusElement>
+          );
+        }
+
+        if (title === "certificate") {
+          return (
+            <TableCertificateElement key={key} ref={ref}>
+              {data}
+            </TableCertificateElement>
           );
         }
 

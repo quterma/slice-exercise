@@ -4,6 +4,7 @@ import {
   HeaderCell,
   HeaderText,
   InnerCell,
+  InnerCertificateCell,
   InnerStatusCell,
   StatusDot,
   StatusText,
@@ -47,6 +48,16 @@ export const TableStatusElement = forwardRef(
         <StatusDot $status={$status} />
         <StatusText $status={$status}>{children}</StatusText>
       </InnerStatusCell>
+    </TableCell>
+  )
+);
+
+export const TableCertificateElement = forwardRef(
+  ({ children }: Props, ref: ForwardedRef<HTMLDivElement> | null) => (
+    <TableCell ref={ref}>
+      <InnerCertificateCell>
+        <TableText>{children}</TableText>
+      </InnerCertificateCell>
     </TableCell>
   )
 );

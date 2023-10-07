@@ -36,6 +36,12 @@ export const InnerStatusCell = styled(InnerCell)<{ $status: Statuses }>`
   border-radius: 4px;
 `;
 
+export const InnerCertificateCell = styled(InnerCell)`
+  padding: 2px 8px;
+  background-color: ${constants.main.grey};
+  border-radius: 6px;
+`;
+
 const CellText = styled.p`
   font-family: ${constants.fonts.inter};
   font-weight: 500;
