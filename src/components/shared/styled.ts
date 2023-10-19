@@ -31,6 +31,7 @@ export const constants = {
     white: "#FFFFFF",
   },
   main: {
+    white: "#FFFFFF",
     blue: "#2B2A6A",
     grey: "#e7e6e4",
     tableHeaderBG: "#FAFAFA",

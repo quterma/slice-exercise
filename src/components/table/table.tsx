@@ -1,9 +1,11 @@
 import { useState, useRef, useCallback } from "react";
 import { useDataLoad } from "../../hooks/useDataLoad";
 import { Tabs, tableHeaders } from "../../tab-config";
-import { Grid } from "./styled";
+import { Grid, GridScroller } from "./styled";
 import { Statuses } from "../../api/api-service";
 import {
+  CheckboxTableElement,
+  CheckboxHeaderElement,
   HeaderElement,
   TableCertificateElement,
   TableElement,
@@ -17,6 +19,7 @@ type Props = {
 
 export const Table = ({ tab }: Props) => {
   const [pageNumber, setPageNumber] = useState(0);
+  const [checkedList, setCheckedList] = useState<number[]>([]);
 
   const { dataList, hasMore, loading, error } = useDataLoad(pageNumber, 10);
 
@@ -41,12 +44,35 @@ export const Table = ({ tab }: Props) => {
     [loading, hasMore]
   );
 
+  const updateCheckedList = (id: number) => {
+    const idElementIndex = checkedList.findIndex((el) => el === id);
+
+    if (idElementIndex < 0) {
+      setCheckedList([...checkedList, id]);
+    } else {
+      const newCheckList = checkedList.slice();
+      newCheckList.splice(idElementIndex, 1);
+
+      setCheckedList(newCheckList);
+    }
+  };
+
+  const handleAllCheckClick = () => {
+    if (checkedList.length < dataList.length) {
+      setCheckedList(dataList.map((row) => row.id));
+    } else {
+      setCheckedList([]);
+    }
+  };
+
   if (!tableHeaders[tab])
     return <div>There is no header for current table!</div>;
 
   const tableElements = dataList
-    .map((dataRow, i) =>
-      tableHeaders[tab]!.map((title, j) => {
+    .map((dataRow, i) => {
+      const isChecked = checkedList.includes(dataRow.id);
+
+      const tableRowElements = tableHeaders[tab]!.map((title, j) => {
         const key = title + dataRow.id;
         const ref = i === dataList.length - 5 && j === 0 ? lastItemRef : null;
         const data = dataRow[title];
@@ -69,7 +95,7 @@ export const Table = ({ tab }: Props) => {
 
         if (title === "employee") {
           return (
-            <TableEmployeeElement key={key} ref={ref} index={i % 4}>
+            <TableEmployeeElement key={key} ref={ref} $index={i % 4}>
               {data}
             </TableEmployeeElement>
           );
@@ -80,16 +106,36 @@ export const Table = ({ tab }: Props) => {
             {data}
           </TableElement>
         );
-      })
-    )
+      });
+
+      const checkBoxElement = (
+        <CheckboxTableElement
+          key={`checkbox + ${dataRow.id}`}
+          checked={isChecked}
+          onChange={() => updateCheckedList(dataRow.id)}
+        />
+      );
+
+      return [checkBoxElement, ...tableRowElements];
+    })
     .flat();
+
+  const headersElements = [
+    <CheckboxHeaderElement
+      key="checkbox"
+      checked={dataList.length > 0 && checkedList.length === dataList.length}
+      onChange={handleAllCheckClick}
+    />,
+    ...tableHeaders[tab]!.map((title) => (
+      <HeaderElement key={title}>{title}</HeaderElement>
+    )),
+  ];
 
   return (
     <>
-      <Grid cols={tableHeaders[tab]!.length}>
-        {tableHeaders[tab]!.map((title) => (
-          <HeaderElement key={title}>{title}</HeaderElement>
-        ))}
+      {/* <GridScroller /> */}
+      <Grid auxCols={1} cols={tableHeaders[tab]!.length}>
+        {headersElements}
         {tableElements}
       </Grid>
       {loading && <div>... loading ...</div>}

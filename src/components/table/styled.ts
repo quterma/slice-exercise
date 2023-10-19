@@ -1,10 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { constants } from "../shared/styled";
 import { Statuses } from "../../api/api-service";
 
-export const Grid = styled.div<{ cols: number }>`
+export const Grid = styled.div<{ auxCols: number; cols: number }>`
   display: grid;
-  grid-template-columns: repeat(${({ cols }) => cols}, 1fr);
+  grid-template-columns: ${({ auxCols }) =>
+      auxCols > 0 ? `repeat(${auxCols}, 50px)` : null} repeat(
+      ${({ cols }) => cols},
+      1fr
+    );
 `;
 
 const Cell = styled.div`
@@ -16,6 +20,9 @@ const Cell = styled.div`
 
 export const HeaderCell = styled(Cell)`
   background-color: ${constants.main.tableHeaderBG};
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 export const TableCell = styled(Cell)`
@@ -83,12 +90,73 @@ export const StatusDot = styled.div<{ $status: Statuses }>`
   height: 6px;
 `;
 
-export const EmployeeAvatar = styled.div<{ index: number }>`
-  background-color: ${({ index }) => constants.avatarColors[index].bg};
-  border: 1px solid ${({ index }) => constants.avatarColors[index].border};
+export const EmployeeAvatar = styled.div<{ $index: number }>`
+  background-color: ${({ $index }) => constants.avatarColors[$index].bg};
+  border: 1px solid ${({ $index }) => constants.avatarColors[$index].border};
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 6px;
   padding: 6px 4px;
+`;
+
+export const InputCheckBox = styled.input.attrs({ type: "checkbox" })`
+  height: 0;
+  width: 0;
+  opacity: 0;
+  z-index: -1;
+`;
+
+export const Label = styled.label`
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+`;
+
+const rotate = keyframes`
+ from {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(45deg);
+  }
+`;
+
+export const Indicator = styled.div`
+  width: 16px;
+  height: 16px;
+  background: ${constants.main.white};
+  position: absolute;
+  top: 0em;
+  border: 1px solid #757575;
+  border-radius: 2px;
+
+  ${Label}:hover & {
+    background: ${constants.main.grey};
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  ${InputCheckBox}:checked + &::after {
+    display: block;
+    left: 4px;
+    width: 35%;
+    height: 70%;
+    border: solid ${constants.main.blue};
+    border-width: 0 2px 2px 0;
+    animation-name: ${rotate};
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+  }
+`;
+
+export const GridScroller = styled.div`
+  overflow: scroll;
+  height: 100vh;
 `;

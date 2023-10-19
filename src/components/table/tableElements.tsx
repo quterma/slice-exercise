@@ -5,10 +5,13 @@ import {
   EmployeeAvatarText,
   HeaderCell,
   HeaderText,
+  Indicator,
   InnerCell,
   InnerCertificateCell,
   InnerEmployeeCell,
   InnerStatusCell,
+  InputCheckBox,
+  Label,
   StatusDot,
   StatusText,
   TableCell,
@@ -66,21 +69,53 @@ export const TableCertificateElement = forwardRef(
 );
 
 type EmployeeProps = {
-  index: number;
+  $index: number;
   children: string;
 };
 export const TableEmployeeElement = forwardRef(
   (
-    { children, index }: EmployeeProps,
+    { children, $index }: EmployeeProps,
     ref: ForwardedRef<HTMLDivElement> | null
   ) => (
     <TableCell ref={ref}>
       <InnerEmployeeCell>
-        <EmployeeAvatar index={index}>
+        <EmployeeAvatar $index={$index}>
           <EmployeeAvatarText>FM</EmployeeAvatarText>
         </EmployeeAvatar>
         <TableText>{children}</TableText>
       </InnerEmployeeCell>
     </TableCell>
   )
+);
+
+type CheckboxElementProps = {
+  checked: boolean;
+  onChange: () => void;
+};
+export const CheckboxTableElement = ({
+  checked,
+  onChange,
+}: CheckboxElementProps) => (
+  <TableCell>
+    <InnerCell>
+      <Label>
+        <InputCheckBox checked={checked} onChange={onChange} />
+        <Indicator />
+      </Label>
+    </InnerCell>
+  </TableCell>
+);
+
+export const CheckboxHeaderElement = ({
+  checked,
+  onChange,
+}: CheckboxElementProps) => (
+  <HeaderCell>
+    <InnerCell>
+      <Label>
+        <InputCheckBox checked={checked} onChange={onChange} />
+        <Indicator />
+      </Label>
+    </InnerCell>
+  </HeaderCell>
 );
