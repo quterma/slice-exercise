@@ -7,6 +7,7 @@ import { Tabs, tabConfig } from "../../tab-config";
 const Container = styled.main`
   display: flex;
   flex-direction: column;
+  height: 100vh;
 `;
 
 type Props = {

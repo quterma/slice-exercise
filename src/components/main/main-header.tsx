@@ -8,6 +8,10 @@ const Container = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid ${constants.main.grey};
   padding: 16px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: ${constants.main.white};
 `;
 
 const Title = styled.h1`

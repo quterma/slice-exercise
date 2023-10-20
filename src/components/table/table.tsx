@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useDataLoad } from "../../hooks/useDataLoad";
 import { Tabs, tableHeaders } from "../../tab-config";
-import { Grid, GridScroller } from "./styled";
+import { Grid } from "./styled";
 import { Statuses } from "../../api/api-service";
 import {
   CheckboxTableElement,
@@ -133,8 +133,7 @@ export const Table = ({ tab }: Props) => {
 
   return (
     <>
-      {/* <GridScroller /> */}
-      <Grid auxCols={1} cols={tableHeaders[tab]!.length}>
+      <Grid $auxCols={1} cols={tableHeaders[tab]!.length}>
         {headersElements}
         {tableElements}
       </Grid>

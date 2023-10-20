@@ -2,13 +2,14 @@ import styled, { keyframes } from "styled-components";
 import { constants } from "../shared/styled";
 import { Statuses } from "../../api/api-service";
 
-export const Grid = styled.div<{ auxCols: number; cols: number }>`
+export const Grid = styled.div<{ $auxCols: number; cols: number }>`
   display: grid;
-  grid-template-columns: ${({ auxCols }) =>
-      auxCols > 0 ? `repeat(${auxCols}, 50px)` : null} repeat(
+  grid-template-columns: ${({ $auxCols }) =>
+      $auxCols > 0 ? `repeat(${$auxCols}, 50px)` : null} repeat(
       ${({ cols }) => cols},
       1fr
     );
+  overflow: scroll;
 `;
 
 const Cell = styled.div`
@@ -27,6 +28,7 @@ export const HeaderCell = styled(Cell)`
 
 export const TableCell = styled(Cell)`
   border-bottom: 1px solid ${constants.main.grey};
+  background-color: ${constants.main.white};
 `;
 
 export const InnerCell = styled.div`
@@ -154,9 +156,4 @@ export const Indicator = styled.div`
     animation-duration: 0.3s;
     animation-fill-mode: forwards;
   }
-`;
-
-export const GridScroller = styled.div`
-  overflow: scroll;
-  height: 100vh;
 `;
