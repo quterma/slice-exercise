@@ -26,9 +26,10 @@ export const HeaderCell = styled(Cell)`
   z-index: 10;
 `;
 
-export const TableCell = styled(Cell)`
+export const TableCell = styled(Cell)<{ checked: boolean }>`
   border-bottom: 1px solid ${constants.main.grey};
-  background-color: ${constants.main.white};
+  background-color: ${({ checked }) =>
+    checked ? constants.main.checked : constants.main.white};
 `;
 
 export const InnerCell = styled.div`

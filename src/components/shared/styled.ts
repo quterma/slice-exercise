@@ -37,6 +37,7 @@ export const constants = {
     tableHeaderBG: "#FAFAFA",
     tableHeaderText: "#787e8b",
     tableText: "#2E323E",
+    checked: "#ffe3de",
   },
   fonts: {
     inter: "Inter",

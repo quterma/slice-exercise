@@ -79,7 +79,12 @@ export const Table = ({ tab }: Props) => {
 
         if (title === "status") {
           return (
-            <TableStatusElement key={key} ref={ref} $status={data as Statuses}>
+            <TableStatusElement
+              key={key}
+              ref={ref}
+              checked={isChecked}
+              $status={data as Statuses}
+            >
               {data}
             </TableStatusElement>
           );
@@ -87,7 +92,7 @@ export const Table = ({ tab }: Props) => {
 
         if (title === "certificate") {
           return (
-            <TableCertificateElement key={key} ref={ref}>
+            <TableCertificateElement key={key} ref={ref} checked={isChecked}>
               {data}
             </TableCertificateElement>
           );
@@ -95,14 +100,19 @@ export const Table = ({ tab }: Props) => {
 
         if (title === "employee") {
           return (
-            <TableEmployeeElement key={key} ref={ref} $index={i % 4}>
+            <TableEmployeeElement
+              key={key}
+              ref={ref}
+              checked={isChecked}
+              $index={i % 4}
+            >
               {data}
             </TableEmployeeElement>
           );
         }
 
         return (
-          <TableElement key={key} ref={ref}>
+          <TableElement key={key} ref={ref} checked={isChecked}>
             {data}
           </TableElement>
         );

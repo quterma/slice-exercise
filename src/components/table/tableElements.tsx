@@ -18,11 +18,10 @@ import {
   TableText,
 } from "./styled";
 
-type Props = {
+type HeaderProps = {
   children: string;
 };
-
-export const HeaderElement = ({ children }: Props) => (
+export const HeaderElement = ({ children }: HeaderProps) => (
   <HeaderCell>
     <InnerCell>
       <HeaderText>{children}</HeaderText>
@@ -30,9 +29,16 @@ export const HeaderElement = ({ children }: Props) => (
   </HeaderCell>
 );
 
+type TableElementProps = {
+  children: string;
+  checked: boolean;
+};
 export const TableElement = forwardRef(
-  ({ children }: Props, ref: ForwardedRef<HTMLDivElement> | null) => (
-    <TableCell ref={ref}>
+  (
+    { children, checked }: TableElementProps,
+    ref: ForwardedRef<HTMLDivElement> | null
+  ) => (
+    <TableCell ref={ref} checked={checked}>
       <InnerCell>
         <TableText>{children}</TableText>
       </InnerCell>
@@ -40,16 +46,15 @@ export const TableElement = forwardRef(
   )
 );
 
-type StatusProps = {
+type StatusElementProps = TableElementProps & {
   $status: Statuses;
-  children: string;
 };
 export const TableStatusElement = forwardRef(
   (
-    { children, $status }: StatusProps,
+    { children, checked, $status }: StatusElementProps,
     ref: ForwardedRef<HTMLDivElement> | null
   ) => (
-    <TableCell ref={ref}>
+    <TableCell ref={ref} checked={checked}>
       <InnerStatusCell $status={$status}>
         <StatusDot $status={$status} />
         <StatusText $status={$status}>{children}</StatusText>
@@ -59,8 +64,11 @@ export const TableStatusElement = forwardRef(
 );
 
 export const TableCertificateElement = forwardRef(
-  ({ children }: Props, ref: ForwardedRef<HTMLDivElement> | null) => (
-    <TableCell ref={ref}>
+  (
+    { children, checked }: TableElementProps,
+    ref: ForwardedRef<HTMLDivElement> | null
+  ) => (
+    <TableCell ref={ref} checked={checked}>
       <InnerCertificateCell>
         <TableText>{children}</TableText>
       </InnerCertificateCell>
@@ -68,16 +76,15 @@ export const TableCertificateElement = forwardRef(
   )
 );
 
-type EmployeeProps = {
+type EmployeeElementProps = TableElementProps & {
   $index: number;
-  children: string;
 };
 export const TableEmployeeElement = forwardRef(
   (
-    { children, $index }: EmployeeProps,
+    { children, checked, $index }: EmployeeElementProps,
     ref: ForwardedRef<HTMLDivElement> | null
   ) => (
-    <TableCell ref={ref}>
+    <TableCell ref={ref} checked={checked}>
       <InnerEmployeeCell>
         <EmployeeAvatar $index={$index}>
           <EmployeeAvatarText>FM</EmployeeAvatarText>
@@ -96,7 +103,7 @@ export const CheckboxTableElement = ({
   checked,
   onChange,
 }: CheckboxElementProps) => (
-  <TableCell>
+  <TableCell checked={checked}>
     <InnerCell>
       <Label>
         <InputCheckBox checked={checked} onChange={onChange} />
