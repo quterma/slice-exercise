@@ -103,7 +103,7 @@ export const CheckboxTableElement = ({
   checked,
   onChange,
 }: CheckboxElementProps) => (
-  <TableCell checked={checked}>
+  <TableCell checked={checked} isFirstColumn={true}>
     <InnerCell>
       <Label>
         <InputCheckBox checked={checked} onChange={onChange} />
@@ -117,7 +117,7 @@ export const CheckboxHeaderElement = ({
   checked,
   onChange,
 }: CheckboxElementProps) => (
-  <HeaderCell>
+  <HeaderCell isFirstColumn={true}>
     <InnerCell>
       <Label>
         <InputCheckBox checked={checked} onChange={onChange} />

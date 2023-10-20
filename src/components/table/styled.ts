@@ -5,11 +5,27 @@ import { Statuses } from "../../api/api-service";
 export const Grid = styled.div<{ $auxCols: number; cols: number }>`
   display: grid;
   grid-template-columns: ${({ $auxCols }) =>
-      $auxCols > 0 ? `repeat(${$auxCols}, 50px)` : null} repeat(
+      $auxCols > 0 ? `repeat(${$auxCols}, 60px)` : null} repeat(
       ${({ cols }) => cols},
       1fr
     );
-  overflow: scroll;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
+  /* scrollbar-color: red orange;
+  scrollbar-width: thin; */
 `;
 
 const Cell = styled.div`
@@ -19,17 +35,29 @@ const Cell = styled.div`
   padding: 12px 10px;
 `;
 
-export const HeaderCell = styled(Cell)`
+export const MarginCell = styled(Cell)`
+  background-color: ${constants.main.white};
+  height: 2px;
+`;
+
+export const HeaderCell = styled(Cell)<{
+  isFirstColumn?: boolean;
+}>`
   background-color: ${constants.main.tableHeaderBG};
   position: sticky;
   top: 0;
   z-index: 10;
+  padding-left: ${({ isFirstColumn }) => (isFirstColumn ? "32px" : "12px")};
 `;
 
-export const TableCell = styled(Cell)<{ checked: boolean }>`
+export const TableCell = styled(Cell)<{
+  checked: boolean;
+  isFirstColumn?: boolean;
+}>`
   border-bottom: 1px solid ${constants.main.grey};
   background-color: ${({ checked }) =>
     checked ? constants.main.checked : constants.main.white};
+  padding-left: ${({ isFirstColumn }) => (isFirstColumn ? "32px" : "12px")};
 `;
 
 export const InnerCell = styled.div`
