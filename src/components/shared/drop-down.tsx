@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { constants } from "./styled";
 import { ReactComponent as DropDownButtonIcon } from "../../assets/menu-icon-arrow-down.svg";
 import { useState } from "react";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 const StyledDropDownMenu = styled.div<{ open: boolean }>`
   position: absolute;
@@ -31,13 +32,11 @@ const StyledDropDownMenuItem = styled.div`
 
   &:hover {
     background: ${constants.main.grey};
-    gap: 14px;
-    padding-left: 8px;
   }
 
   &:active {
-    gap: 16px;
-    padding-left: 6px;
+    gap: 14px;
+    padding-left: 8px;
   }
 
   p {
@@ -124,13 +123,21 @@ const DropDownButton = ({ open, setOpen }: DropDownButtonProps) => {
 
 const DropDownContainer = styled.div`
   position: relative;
+  top: -2px;
+  left: 12px;
 `;
 
 export const DropDown = ({ menuItems }: { menuItems: DropDownMenuItem[] }) => {
   const [open, setOpen] = useState(false);
 
+  const nullRef = null;
+  const ref = useOutsideClick(() => {
+    console.log("Clicked outside of DropDown");
+    setOpen(false);
+  });
+
   return (
-    <DropDownContainer>
+    <DropDownContainer ref={open ? ref : nullRef}>
       <DropDownButton open={open} setOpen={() => setOpen(!open)} />
       <DropDownMenu open={open} items={menuItems} />
     </DropDownContainer>

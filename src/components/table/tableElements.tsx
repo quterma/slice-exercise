@@ -51,17 +51,15 @@ type TableDropdownElementProps = {
   checked: boolean;
   menuItems: DropDownMenuItem[];
 };
-export const TableDropdownElement = forwardRef(
-  (
-    { checked, menuItems }: TableDropdownElementProps,
-    ref: ForwardedRef<HTMLDivElement> | null
-  ) => (
-    <TableCell ref={ref} checked={checked}>
-      <InnerCell>
-        <DropDown menuItems={menuItems} />
-      </InnerCell>
-    </TableCell>
-  )
+export const TableDropdownElement = ({
+  checked,
+  menuItems,
+}: TableDropdownElementProps) => (
+  <TableCell checked={checked}>
+    <InnerCell>
+      <DropDown menuItems={menuItems} />
+    </InnerCell>
+  </TableCell>
 );
 
 type StatusElementProps = TableElementProps & {
