@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useDataLoad } from "../../hooks/useDataLoad";
 import { Tabs, tableHeaders } from "../../tab-config";
-import { MarginCell, Grid } from "./styled";
+import { MarginCell, Grid, HeaderCell } from "./styled";
 import { Statuses } from "../../api/api-service";
 import {
   CheckboxTableElement,
@@ -11,7 +11,10 @@ import {
   TableElement,
   TableEmployeeElement,
   TableStatusElement,
+  TableDropdownElement,
 } from "./tableElements";
+import { DropDownMenuItem } from "../shared/drop-down";
+import { ReactComponent as DropDownMenuIcon } from "../../assets/print-icon.svg";
 
 type Props = {
   tab: Tabs;
@@ -118,15 +121,27 @@ export const Table = ({ tab }: Props) => {
         );
       });
 
-      const checkBoxElement = (
+      const menuItems: DropDownMenuItem[] = tableHeaders[tab]!.slice(0, 3).map(
+        (label) => ({
+          label,
+          onClick: () => console.log(dataRow[label]),
+          Icon: DropDownMenuIcon,
+        })
+      );
+
+      return [
         <CheckboxTableElement
           key={`checkbox + ${dataRow.id}`}
           checked={isChecked}
           onChange={() => updateCheckedList(dataRow.id)}
-        />
-      );
-
-      return [checkBoxElement, ...tableRowElements];
+        />,
+        <TableDropdownElement
+          key={`dropdown + ${dataRow.id}`}
+          checked={isChecked}
+          menuItems={menuItems}
+        />,
+        ...tableRowElements,
+      ];
     })
     .flat();
 
@@ -136,18 +151,21 @@ export const Table = ({ tab }: Props) => {
       checked={dataList.length > 0 && checkedList.length === dataList.length}
       onChange={handleAllCheckClick}
     />,
+    <HeaderCell key="dropdown" />,
     ...tableHeaders[tab]!.map((title) => (
       <HeaderElement key={title}>{title}</HeaderElement>
     )),
   ];
 
-  const marginRow = new Array(tableHeaders[tab]!.length + 1).fill(
-    <MarginCell />
-  );
+  const auxCols = headersElements.length - tableHeaders[tab]!.length;
+
+  const marginRow = new Array(tableHeaders[tab]!.length + auxCols)
+    .fill(null)
+    .map((_, i) => <MarginCell key={i} />);
 
   return (
     <>
-      <Grid $auxCols={1} cols={tableHeaders[tab]!.length}>
+      <Grid $auxCols={auxCols} cols={tableHeaders[tab]!.length}>
         {marginRow}
         {headersElements}
         {tableElements}

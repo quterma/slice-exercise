@@ -41,23 +41,23 @@ export const MarginCell = styled(Cell)`
 `;
 
 export const HeaderCell = styled(Cell)<{
-  isFirstColumn?: boolean;
+  $isFirstColumn?: boolean;
 }>`
   background-color: ${constants.main.tableHeaderBG};
   position: sticky;
   top: 0;
   z-index: 10;
-  padding-left: ${({ isFirstColumn }) => (isFirstColumn ? "32px" : "12px")};
+  padding-left: ${({ $isFirstColumn }) => ($isFirstColumn ? "32px" : "12px")};
 `;
 
 export const TableCell = styled(Cell)<{
   checked: boolean;
-  isFirstColumn?: boolean;
+  $isFirstColumn?: boolean;
 }>`
   border-bottom: 1px solid ${constants.main.grey};
   background-color: ${({ checked }) =>
     checked ? constants.main.checked : constants.main.white};
-  padding-left: ${({ isFirstColumn }) => (isFirstColumn ? "32px" : "12px")};
+  padding-left: ${({ $isFirstColumn }) => ($isFirstColumn ? "32px" : "12px")};
 `;
 
 export const InnerCell = styled.div`

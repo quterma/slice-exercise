@@ -17,6 +17,7 @@ import {
   TableCell,
   TableText,
 } from "./styled";
+import { DropDown, DropDownMenuItem } from "../shared/drop-down";
 
 type HeaderProps = {
   children: string;
@@ -41,6 +42,23 @@ export const TableElement = forwardRef(
     <TableCell ref={ref} checked={checked}>
       <InnerCell>
         <TableText>{children}</TableText>
+      </InnerCell>
+    </TableCell>
+  )
+);
+
+type TableDropdownElementProps = {
+  checked: boolean;
+  menuItems: DropDownMenuItem[];
+};
+export const TableDropdownElement = forwardRef(
+  (
+    { checked, menuItems }: TableDropdownElementProps,
+    ref: ForwardedRef<HTMLDivElement> | null
+  ) => (
+    <TableCell ref={ref} checked={checked}>
+      <InnerCell>
+        <DropDown menuItems={menuItems} />
       </InnerCell>
     </TableCell>
   )
@@ -103,7 +121,7 @@ export const CheckboxTableElement = ({
   checked,
   onChange,
 }: CheckboxElementProps) => (
-  <TableCell checked={checked} isFirstColumn={true}>
+  <TableCell checked={checked} $isFirstColumn={true}>
     <InnerCell>
       <Label>
         <InputCheckBox checked={checked} onChange={onChange} />
@@ -117,7 +135,7 @@ export const CheckboxHeaderElement = ({
   checked,
   onChange,
 }: CheckboxElementProps) => (
-  <HeaderCell isFirstColumn={true}>
+  <HeaderCell $isFirstColumn={true}>
     <InnerCell>
       <Label>
         <InputCheckBox checked={checked} onChange={onChange} />
