@@ -39,6 +39,7 @@ export const constants = {
     tableText: "#2E323E",
     checked: "#ffe3de",
     sidebarBorder: "#ABADBF",
+    sidebarBurgerBar: "#0105D3",
   },
   fonts: {
     inter: "Inter",

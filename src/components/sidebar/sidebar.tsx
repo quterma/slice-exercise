@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SydebarHeader } from "./sidebar-elements";
+import { SidebarBurger, SidebarHeader } from "./sidebar-elements";
 import { SidebarContainer } from "./styled";
 
 export const Sidebar = () => {
@@ -7,7 +7,8 @@ export const Sidebar = () => {
 
   return (
     <SidebarContainer open={open}>
-      <SydebarHeader title="Slice" open={open} />
+      <SidebarHeader title="Slice" open={open} />
+      <SidebarBurger open={open} setOpen={() => setOpen(!open)} />
     </SidebarContainer>
   );
 };

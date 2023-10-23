@@ -51,3 +51,53 @@ export const SidebarContainer = styled.div<{ open: boolean }>`
   flex-direction: column;
   gap: 8px;
 `;
+
+export const StyledBurger = styled.button<{ open: boolean }>`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  width: 36px;
+  height: 36px;
+  transition: all 0.3s linear;
+  padding: 0 0 0 ${({ open }) => (open ? "9px" : "13px")};
+  background: ${constants.main.white};
+  border: 1px solid ${constants.main.grey};
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  div {
+    height: 3px;
+    background-color: ${constants.main.blue};
+    border-radius: 3px;
+    transition: all 0.3s linear;
+
+    &:first-child {
+      width: ${({ open }) => (open ? "17px" : "9px")};
+    }
+
+    &:nth-child(2) {
+      width: 9px;
+    }
+
+    &:nth-child(3) {
+      width: ${({ open }) => (open ? "17px" : "9px")};
+    }
+
+    &:nth-child(4) {
+      position: absolute;
+      right: ${({ open }) => (open ? "8px" : "6px")};
+      height: unset;
+      background-color: unset;
+      display: flex;
+      align-items: center;
+      max-width: 4px;
+      transform: scaleX(${({ open }) => (open ? 1 : -1)});
+    }
+  }
+`;
