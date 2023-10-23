@@ -12,7 +12,7 @@ import {
   TableEmployeeElement,
   TableStatusElement,
   TableDropdownElement,
-} from "./tableElements";
+} from "./table-elements";
 import { DropDownMenuItem } from "../shared/drop-down";
 import { ReactComponent as DropDownMenuIcon } from "../../assets/print-icon.svg";
 

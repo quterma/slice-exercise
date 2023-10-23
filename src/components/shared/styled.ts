@@ -38,6 +38,7 @@ export const constants = {
     tableHeaderText: "#787e8b",
     tableText: "#2E323E",
     checked: "#ffe3de",
+    sidebarBorder: "#ABADBF",
   },
   fonts: {
     inter: "Inter",
