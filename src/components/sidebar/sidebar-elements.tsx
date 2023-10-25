@@ -4,8 +4,10 @@ import {
   LogoPolygon,
   LogoRectangle,
   StyledBurger,
+  StyledBurgerChild,
 } from "./styled";
 import { ReactComponent as TriangleIcon } from "../../assets/triangle.svg";
+import { ReactComponent as LockIcon } from "../../assets/lock.svg";
 
 type SidebarHeaderProps = {
   title: string;
@@ -16,21 +18,26 @@ export const SidebarHeader = ({ title, open }: SidebarHeaderProps) => (
     <LogoRectangle>
       <LogoPolygon />
     </LogoRectangle>
-    {open && <HeaderTitle>{title}</HeaderTitle>}
+    <HeaderTitle>{title}</HeaderTitle>
   </Header>
 );
 
 type SidebarBurgerProps = {
   open: boolean;
-  setOpen: () => void;
+  locked: boolean;
+  handleClick: () => void;
 };
-export const SidebarBurger = ({ open, setOpen }: SidebarBurgerProps) => (
-  <StyledBurger open={open} onClick={setOpen}>
-    <div />
-    <div />
-    <div />
-    <div>
-      <TriangleIcon />
-    </div>
+export const SidebarBurger = ({
+  open,
+  locked,
+  handleClick,
+}: SidebarBurgerProps) => (
+  <StyledBurger open={open} onClick={handleClick}>
+    <StyledBurgerChild open={open} />
+    <StyledBurgerChild />
+    <StyledBurgerChild open={open} $locked={locked} />
+    <StyledBurgerChild open={open} $locked={locked}>
+      {locked ? <LockIcon /> : <TriangleIcon />}
+    </StyledBurgerChild>
   </StyledBurger>
 );

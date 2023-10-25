@@ -130,14 +130,13 @@ const DropDownContainer = styled.div`
 export const DropDown = ({ menuItems }: { menuItems: DropDownMenuItem[] }) => {
   const [open, setOpen] = useState(false);
 
-  const nullRef = null;
   const ref = useOutsideClick(() => {
     console.log("Clicked outside of DropDown");
     setOpen(false);
   });
 
   return (
-    <DropDownContainer ref={open ? ref : nullRef}>
+    <DropDownContainer ref={open ? ref : null}>
       <DropDownButton open={open} setOpen={() => setOpen(!open)} />
       <DropDownMenu open={open} items={menuItems} />
     </DropDownContainer>

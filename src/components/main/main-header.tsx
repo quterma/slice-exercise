@@ -10,7 +10,6 @@ const Container = styled.div`
   padding: 16px 32px;
   position: sticky;
   top: 0;
-  z-index: 10;
   background-color: ${constants.main.white};
 `;
 

@@ -9,7 +9,7 @@ export const Grid = styled.div<{ $auxCols: number; cols: number }>`
       ${({ cols }) => cols},
       1fr
     );
-  overflow: auto;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -24,8 +24,6 @@ export const Grid = styled.div<{ $auxCols: number; cols: number }>`
     background-color: darkgrey;
     outline: 1px solid slategrey;
   }
-  /* scrollbar-color: red orange;
-  scrollbar-width: thin; */
 `;
 
 const Cell = styled.div`
@@ -37,7 +35,6 @@ const Cell = styled.div`
 
 export const MarginCell = styled(Cell)`
   background-color: ${constants.main.white};
-  height: 2px;
 `;
 
 export const HeaderCell = styled(Cell)<{

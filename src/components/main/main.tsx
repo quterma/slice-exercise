@@ -8,6 +8,7 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-x: auto;
 `;
 
 type Props = {
