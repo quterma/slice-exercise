@@ -85,7 +85,6 @@ const CellText = styled.p`
   font-family: ${constants.fonts.inter};
   font-weight: 500;
   white-space: nowrap;
-  margin: 0;
 `;
 
 export const HeaderText = styled(CellText)`

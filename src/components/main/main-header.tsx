@@ -17,11 +17,8 @@ const Title = styled.h1`
   font-family: ${constants.fonts.inter};
   font-size: 20px;
   font-weight: 600;
-  line-height: 24px;
-  letter-spacing: -0.01em;
   text-align: left;
   color: ${constants.main.blue};
-  margin: 0;
 `;
 
 export type HeaderButton = {

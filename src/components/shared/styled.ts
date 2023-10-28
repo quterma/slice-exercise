@@ -40,6 +40,9 @@ export const constants = {
     checked: "#ffe3de",
     sidebarBorder: "#ABADBF",
     sidebarBurgerBar: "#0105D3",
+    sidebarItem: "#E6EBFF",
+    sidebarItemText: "#C2C2C2",
+    sidebarBadge: "#CAF8CE",
   },
   fonts: {
     inter: "Inter",

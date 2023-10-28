@@ -3,8 +3,26 @@ import { HeaderButton } from "./components/main/main-header";
 import { CertificatesTableRow } from "./api/api-service";
 
 export enum Tabs {
-  EMPTY = "Empty",
   CERTIFICATES = "Certificates",
+  OFFER_LETTERS = "Offer Letters",
+  CONSULTING = "Consulting",
+  POSITIONS = "Positions",
+  SALARIES = "Salaries",
+  EMPLOYEES = "Employees",
+  SYSTEMS = "Systems",
+  ONBOARDING = "Onboarding",
+  USER_TIMELINE = "User Timeline",
+  ISSUES = "Issues",
+  FILINGS = "Filings",
+  OFFERS = "Offers",
+  INTERVIEWS = "Interviews",
+}
+
+export enum Sections {
+  TALENT = "Talent",
+  TALENT_POOL = "Talent Pool",
+  HUMAN_RESOURCES = "Human Resources",
+  SCENARIOS = "Scenarios",
 }
 
 type Tab = {
@@ -13,12 +31,18 @@ type Tab = {
   contentType: "table" | null;
 };
 
-export const tabConfig: Record<Tabs, Tab> = {
-  [Tabs.EMPTY]: {
-    title: Tabs.EMPTY,
-    button: null,
-    contentType: null,
-  },
+const getEmptyTabConfig = (tab: Tabs) => ({
+  title: tab,
+  button: null,
+  contentType: null,
+});
+
+const emptyConfigs: Partial<Record<Tabs, Tab>> = (
+  Object.values(Tabs) as Tabs[]
+).reduce((acc, tab) => ({ ...acc, [tab]: getEmptyTabConfig(tab) }), {});
+
+export const tabConfig: Partial<Record<Tabs, Tab>> = {
+  ...emptyConfigs,
   [Tabs.CERTIFICATES]: {
     title: Tabs.CERTIFICATES,
     button: {

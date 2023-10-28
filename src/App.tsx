@@ -13,7 +13,7 @@ export const App = () => {
 
   return (
     <Wrapper>
-      <Sidebar />
+      <Sidebar activeTab={tab} setTab={setTab} />
       <Main tab={tab} />
     </Wrapper>
   );

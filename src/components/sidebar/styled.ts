@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { constants } from "../shared/styled";
 
-export const Header = styled.header<{ open: boolean }>`
+export const StyledHeader = styled.header<{ open: boolean }>`
   display: flex;
   gap: 13px;
   align-items: center;
-  padding-left: 6px;
+  padding: 0 0 20px 6px;
 `;
 
 export const LogoRectangle = styled.div`
@@ -35,25 +35,23 @@ export const HeaderTitle = styled.p`
   font-family: "Nunito Sans";
   font-size: 25px;
   font-weight: 900;
-  line-height: 25px;
-  letter-spacing: 0em;
-  margin: 0;
 `;
 
-export const SidebarContainer = styled.div<{ open: boolean }>`
+export const SidebarContainer = styled.aside<{ open: boolean }>`
   box-sizing: border-box;
   border-right: 1px solid ${constants.main.sidebarBorder};
   background-color: ${constants.main.white};
-  transition: max-width 300ms linear;
-  max-width: ${({ open }) => (open ? "300px" : "61px")};
+  transition: all 300ms linear;
+  max-width: ${({ open }) => (open ? "264px" : "61px")};
+  min-width: ${({ open }) => (open ? "264px" : "61px")};
   padding: 16px 8px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 20px;
   position: relative;
 `;
 
-export const StyledBurgerChild = styled.div<{
+export const BurgerChild = styled.div<{
   open?: boolean;
   $locked?: boolean;
 }>`
@@ -117,4 +115,72 @@ export const StyledBurger = styled.button<{ open: boolean }>`
   &:active {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   }
+`;
+
+export const StyledSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const SectionHeader = styled.div<{ $first: boolean; open: boolean }>`
+  display: flex;
+  padding: 7px;
+  background-color: ${constants.main.white};
+  border-top: ${({ open, $first }) =>
+    open || $first ? "unset" : `1px solid ${constants.main.blue}`};
+`;
+
+export const SectionHeaderTitle = styled.p`
+  font-family: ${constants.fonts.inter};
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: ${constants.main.sidebarBorder};
+`;
+
+export const SectionItem = styled.div<{ open: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: ${({ open }) => (open ? "start" : "center")};
+  padding: 8px 10px;
+  gap: 8px;
+  border-radius: 4px;
+  background-color: ${constants.main.white};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${constants.main.sidebarItem};
+  }
+`;
+
+export const SectionItemTitle = styled.p<{ $active: boolean }>`
+  font-family: ${constants.fonts.inter};
+  font-size: 14px;
+  font-weight: 500;
+  color: ${({ $active }) =>
+    $active ? constants.main.blue : constants.main.sidebarItemText};
+`;
+
+export const SectionItemBadgeWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex: 1;
+`;
+
+export const SectionItemBadge = styled.div`
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  background-color: ${constants.main.sidebarBadge};
+`;
+
+export const SectionItemBadgeText = styled.p`
+  color: ${constants.main.blue};
+  font-family: ${constants.fonts.inter};
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
 `;

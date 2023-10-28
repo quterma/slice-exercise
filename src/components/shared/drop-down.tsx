@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { constants } from "./styled";
-import { ReactComponent as DropDownButtonIcon } from "../../assets/menu-icon-arrow-down.svg";
-import { useState } from "react";
+import { ReactComponent as DropDownButtonIcon } from "../../assets/sidebar-images/menu-icon-arrow-down.svg";
+import { useState, FunctionComponent, SVGProps } from "react";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 const StyledDropDownMenu = styled.div<{ open: boolean }>`
@@ -46,18 +46,13 @@ const StyledDropDownMenuItem = styled.div`
     font-family: ${constants.fonts.inter};
     font-weight: 500;
     white-space: nowrap;
-    margin: 0;
   }
 `;
 
 export type DropDownMenuItem = {
   label: string | number;
   onClick: () => void;
-  Icon: React.FunctionComponent<
-    React.SVGProps<SVGSVGElement> & {
-      title?: string | undefined;
-    }
-  >;
+  Icon: FunctionComponent<SVGProps<SVGSVGElement>>;
 };
 type DropDownMenuProps = {
   open: boolean;

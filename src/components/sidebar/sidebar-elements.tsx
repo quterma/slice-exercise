@@ -1,25 +1,35 @@
 import {
-  Header,
+  StyledHeader,
   HeaderTitle,
   LogoPolygon,
   LogoRectangle,
   StyledBurger,
-  StyledBurgerChild,
+  BurgerChild,
+  StyledSection,
+  SectionHeader,
+  SectionHeaderTitle,
+  SectionItem,
+  SectionItemTitle,
+  SectionItemBadge,
+  SectionItemBadgeText,
+  SectionItemBadgeWrapper,
 } from "./styled";
-import { ReactComponent as TriangleIcon } from "../../assets/triangle.svg";
-import { ReactComponent as LockIcon } from "../../assets/lock.svg";
+import { ReactComponent as TriangleIcon } from "../../assets/sidebar-images/triangle.svg";
+import { ReactComponent as LockIcon } from "../../assets/sidebar-images/lock.svg";
+import { Tabs } from "../../tab-config";
+import { FunctionComponent, SVGProps } from "react";
 
 type SidebarHeaderProps = {
   title: string;
   open: boolean;
 };
 export const SidebarHeader = ({ title, open }: SidebarHeaderProps) => (
-  <Header open={open}>
+  <StyledHeader open={open}>
     <LogoRectangle>
       <LogoPolygon />
     </LogoRectangle>
     <HeaderTitle>{title}</HeaderTitle>
-  </Header>
+  </StyledHeader>
 );
 
 type SidebarBurgerProps = {
@@ -33,11 +43,53 @@ export const SidebarBurger = ({
   handleClick,
 }: SidebarBurgerProps) => (
   <StyledBurger open={open} onClick={handleClick}>
-    <StyledBurgerChild open={open} />
-    <StyledBurgerChild />
-    <StyledBurgerChild open={open} $locked={locked} />
-    <StyledBurgerChild open={open} $locked={locked}>
+    <BurgerChild open={open} />
+    <BurgerChild />
+    <BurgerChild open={open} $locked={locked} />
+    <BurgerChild open={open} $locked={locked}>
       {locked ? <LockIcon /> : <TriangleIcon />}
-    </StyledBurgerChild>
+    </BurgerChild>
   </StyledBurger>
+);
+
+export type SectionItemType = {
+  Icon: FunctionComponent<SVGProps<SVGSVGElement>>;
+  tab: Tabs;
+  setTab: () => void;
+  badge?: string;
+};
+type SidebarSectionProps = {
+  open: boolean;
+  title: string;
+  activeTab: Tabs;
+  items: SectionItemType[];
+  $first: boolean;
+};
+export const SidebarSection = ({
+  open,
+  activeTab,
+  title,
+  items,
+  $first,
+}: SidebarSectionProps) => (
+  <StyledSection>
+    <SectionHeader open={open} $first={$first}>
+      {open && <SectionHeaderTitle>{title}</SectionHeaderTitle>}
+    </SectionHeader>
+    {items.map(({ Icon, tab, setTab, badge }, i) => (
+      <SectionItem key={title + i} open={open} onClick={setTab}>
+        <Icon />
+        {open && (
+          <SectionItemTitle $active={tab === activeTab}>{tab}</SectionItemTitle>
+        )}
+        {badge && open && (
+          <SectionItemBadgeWrapper>
+            <SectionItemBadge>
+              <SectionItemBadgeText>{badge}</SectionItemBadgeText>
+            </SectionItemBadge>
+          </SectionItemBadgeWrapper>
+        )}
+      </SectionItem>
+    ))}
+  </StyledSection>
 );
