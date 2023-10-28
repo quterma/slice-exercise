@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { constants } from "../shared/styled";
 
-export const StyledHeader = styled.header<{ open: boolean }>`
+export const StyledHeader = styled.header`
   display: flex;
-  gap: 13px;
   align-items: center;
+  gap: 13px;
   padding: 0 0 20px 6px;
 `;
 
@@ -158,15 +158,9 @@ export const SectionItemTitle = styled.p<{ $active: boolean }>`
   font-family: ${constants.fonts.inter};
   font-size: 14px;
   font-weight: 500;
+  flex: 1;
   color: ${({ $active }) =>
     $active ? constants.main.blue : constants.main.sidebarItemText};
-`;
-
-export const SectionItemBadgeWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  flex: 1;
 `;
 
 export const SectionItemBadge = styled.div`
@@ -183,4 +177,89 @@ export const SectionItemBadgeText = styled.p`
   font-weight: 700;
   text-transform: uppercase;
   white-space: nowrap;
+`;
+
+export const StyledFooter = styled.div`
+  display: flex;
+  padding: 20px 0 0 6px;
+  gap: 12px;
+`;
+
+export const FooterLogoRound = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: ${constants.main.blue};
+`;
+
+export const FooterLogoText = styled.p`
+  color: ${constants.main.white};
+  font-family: ${constants.fonts.inter};
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-left: 2px;
+`;
+
+export const FooterTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 5px;
+`;
+
+export const FooterText = styled.p`
+  color: ${constants.main.blue};
+  font-family: ${constants.fonts.inter};
+  font-size: 14px;
+  font-weight: 700;
+
+  &:first-child {
+    font-weight: 700;
+  }
+
+  &:nth-child(2) {
+    font-weight: 400;
+  }
+`;
+
+export const StyledDotsButton = styled.button<{ open: boolean }>`
+  display: flex;
+  transition: all 0.2s linear;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  background: ${constants.main.white};
+  cursor: pointer;
+  border: unset;
+  border-radius: 50%;
+  transform: rotate(${({ open }) => (open ? "-90deg" : "0deg")});
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+export const Dot = styled.div`
+  height: 3px;
+  width: 3px;
+  background-color: ${constants.main.sidebarBorder};
+  border-radius: 50%;
 `;

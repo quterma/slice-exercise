@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   SectionItemType,
   SidebarBurger,
+  SidebarFooter,
   SidebarHeader,
   SidebarSection,
 } from "./sidebar-elements";
@@ -133,6 +134,12 @@ export const Sidebar = ({ activeTab, setTab }: SidebarProps) => {
       <SidebarHeader title="Slice" open={open} />
       <SidebarBurger open={open} locked={locked} handleClick={handleClick} />
       {sections}
+      <SidebarFooter
+        open={open}
+        logoText="ds"
+        title="Daniel Smith"
+        subtitle="Acme Inc."
+      />
     </SidebarContainer>
   );
 };

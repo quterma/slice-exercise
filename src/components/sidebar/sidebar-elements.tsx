@@ -12,23 +12,29 @@ import {
   SectionItemTitle,
   SectionItemBadge,
   SectionItemBadgeText,
-  SectionItemBadgeWrapper,
+  StyledFooter,
+  FooterLogoRound,
+  FooterLogoText,
+  FooterTextContainer,
+  FooterText,
+  StyledDotsButton,
+  Dot,
 } from "./styled";
 import { ReactComponent as TriangleIcon } from "../../assets/sidebar-images/triangle.svg";
 import { ReactComponent as LockIcon } from "../../assets/sidebar-images/lock.svg";
 import { Tabs } from "../../tab-config";
-import { FunctionComponent, SVGProps } from "react";
+import { FunctionComponent, SVGProps, useState } from "react";
 
 type SidebarHeaderProps = {
   title: string;
   open: boolean;
 };
 export const SidebarHeader = ({ title, open }: SidebarHeaderProps) => (
-  <StyledHeader open={open}>
+  <StyledHeader>
     <LogoRectangle>
       <LogoPolygon />
     </LogoRectangle>
-    <HeaderTitle>{title}</HeaderTitle>
+    {open && <HeaderTitle>{title}</HeaderTitle>}
   </StyledHeader>
 );
 
@@ -83,13 +89,60 @@ export const SidebarSection = ({
           <SectionItemTitle $active={tab === activeTab}>{tab}</SectionItemTitle>
         )}
         {badge && open && (
-          <SectionItemBadgeWrapper>
-            <SectionItemBadge>
-              <SectionItemBadgeText>{badge}</SectionItemBadgeText>
-            </SectionItemBadge>
-          </SectionItemBadgeWrapper>
+          <SectionItemBadge>
+            <SectionItemBadgeText>{badge}</SectionItemBadgeText>
+          </SectionItemBadge>
         )}
       </SectionItem>
     ))}
   </StyledSection>
+);
+
+type DotsButtonProps = {
+  open: boolean;
+  handleClick: () => void;
+};
+const DotsButton = ({ open, handleClick }: DotsButtonProps) => (
+  <StyledDotsButton open={open} onClick={handleClick}>
+    <Dot />
+    <Dot />
+    <Dot />
+  </StyledDotsButton>
+);
+
+const FooterMenuWrapper = () => {
+  const [open, setOpen] = useState(false);
+  const toggleopen = () => {
+    console.log("Footer Menu Button Clicked");
+
+    setOpen(!open);
+  };
+
+  return <DotsButton open={open} handleClick={toggleopen} />;
+};
+
+type SidebarFooterProps = {
+  open: boolean;
+  logoText: string;
+  title: string;
+  subtitle: string;
+};
+export const SidebarFooter = ({
+  logoText,
+  title,
+  subtitle,
+  open,
+}: SidebarFooterProps) => (
+  <StyledFooter>
+    <FooterLogoRound>
+      <FooterLogoText>{logoText}</FooterLogoText>
+    </FooterLogoRound>
+    {open && (
+      <FooterTextContainer>
+        <FooterText>{title}</FooterText>
+        <FooterText>{subtitle}</FooterText>
+      </FooterTextContainer>
+    )}
+    {open && <FooterMenuWrapper />}
+  </StyledFooter>
 );
