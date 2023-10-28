@@ -58,7 +58,7 @@ export const BurgerChild = styled.div<{
   height: 3px;
   background-color: ${constants.main.blue};
   border-radius: 3px;
-  transition: all 0.3s linear;
+  transition: all 0.2s linear;
 
   &:first-child {
     width: ${({ open }) => (open ? "17px" : "9px")};
@@ -74,6 +74,7 @@ export const BurgerChild = styled.div<{
   }
 
   &:nth-child(4) {
+    transition-delay: 0.2s;
     position: absolute;
     right: ${({ open, $locked }) => (open ? ($locked ? "5px" : "8px") : "6px")};
     height: unset;
