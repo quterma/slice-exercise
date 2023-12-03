@@ -1,8 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useDataLoad } from "../../hooks/useDataLoad";
-import { Tabs, tableHeaders } from "../../tab-config";
+import { TableHeaders, TableHeadersList, tableHeaders } from "../../tab-config";
 import { MarginCell, Grid, HeaderCell } from "./styled";
-import { Statuses } from "../../api/api-service";
 import {
   CheckboxTableElement,
   CheckboxHeaderElement,
@@ -13,18 +12,30 @@ import {
   TableStatusElement,
   TableDropdownElement,
 } from "./table-elements";
-import { DropDownMenuItem } from "../shared/drop-down";
 import { ReactComponent as DropDownMenuIcon } from "../../assets/print-icon.svg";
+import {
+  CertificatesTableRow,
+  Statuses,
+  TableRow,
+  Tables,
+  Tabs,
+} from "../types/tab-types";
+import { DropDownMenuItem } from "../types/component-types";
+import { checkIsCellForObserver } from "../../helpers/helpers";
 
 type Props = {
-  tab: Tabs;
+  tab: Tables;
 };
 
 export const Table = ({ tab }: Props) => {
   const [pageNumber, setPageNumber] = useState(0);
   const [checkedList, setCheckedList] = useState<number[]>([]);
 
-  const { dataList, hasMore, loading, error } = useDataLoad(pageNumber, 10);
+  const { dataList, hasMore, loading, error } = useDataLoad(
+    pageNumber,
+    10,
+    tab
+  );
 
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -68,16 +79,16 @@ export const Table = ({ tab }: Props) => {
     }
   };
 
-  if (!tableHeaders[tab])
-    return <div>There is no header for current table!</div>;
-
   const tableElements = dataList
-    .map((dataRow, i) => {
+    .map((dataRow, rowIndex) => {
       const isChecked = checkedList.includes(dataRow.id);
 
-      const tableRowElements = tableHeaders[tab]!.map((title, j) => {
+      const tableRowElements = tableHeaders[tab].map((title, colIndex) => {
         const key = title + dataRow.id;
-        const ref = i === dataList.length - 5 && j === 0 ? lastItemRef : null;
+        const ref = checkIsCellForObserver({ dataList, rowIndex, colIndex })
+          ? lastItemRef
+          : null;
+
         const data = dataRow[title];
 
         if (title === "status") {
@@ -121,13 +132,13 @@ export const Table = ({ tab }: Props) => {
         );
       });
 
-      const menuItems: DropDownMenuItem[] = tableHeaders[tab]!.slice(0, 3).map(
-        (label) => ({
+      const menuItems: DropDownMenuItem[] = tableHeaders[tab]
+        .slice(0, 3)
+        .map((label) => ({
           label,
           onClick: () => console.log(dataRow[label]),
           Icon: DropDownMenuIcon,
-        })
-      );
+        }));
 
       return [
         <CheckboxTableElement
@@ -152,20 +163,20 @@ export const Table = ({ tab }: Props) => {
       onChange={handleAllCheckClick}
     />,
     <HeaderCell key="dropdown" />,
-    ...tableHeaders[tab]!.map((title) => (
+    ...tableHeaders[tab].map((title) => (
       <HeaderElement key={title}>{title}</HeaderElement>
     )),
   ];
 
-  const auxCols = headersElements.length - tableHeaders[tab]!.length;
+  const auxCols = headersElements.length - tableHeaders[tab].length;
 
-  const marginRow = new Array(tableHeaders[tab]!.length + auxCols)
-    .fill(null)
-    .map((_, i) => <MarginCell key={i} />);
+  const marginRow = Array.from(
+    Array(tableHeaders[tab].length + auxCols).keys()
+  ).map((ind) => <MarginCell key={ind} />);
 
   return (
     <>
-      <Grid $auxCols={auxCols} cols={tableHeaders[tab]!.length}>
+      <Grid $auxCols={auxCols} cols={tableHeaders[tab].length}>
         {marginRow}
         {headersElements}
         {tableElements}

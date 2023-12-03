@@ -46,3 +46,18 @@ export const removeDuplicateObjects = <
 
   return unique;
 };
+
+type CheckIsCellForObserverProps = {
+  dataList: any[];
+  rowIndex: number;
+  colIndex: number;
+};
+export const checkIsCellForObserver = ({
+  dataList,
+  rowIndex,
+  colIndex,
+}: CheckIsCellForObserverProps) => {
+  const isOkay = rowIndex === dataList.length - 5 && colIndex === 0;
+  if (isOkay) console.log(`isOkay. row: ${rowIndex}, col: ${colIndex}`);
+  return isOkay;
+};

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Main } from "./components/main/main";
-import { Tabs } from "./tab-config";
 import { useState } from "react";
 import { Sidebar } from "./components/sidebar/sidebar";
+import { Tabs } from "./components/types/tab-types";
 
 const Wrapper = styled.div`
   display: flex;

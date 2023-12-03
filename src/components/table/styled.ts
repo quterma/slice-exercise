@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { constants } from "../shared/styled";
-import { Statuses } from "../../api/api-service";
+import { Statuses } from "../types/tab-types";
 
 export const Grid = styled.div<{ $auxCols: number; cols: number }>`
   display: grid;

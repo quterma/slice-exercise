@@ -1,49 +1,28 @@
 import { ReactComponent as ButtonIconPlus } from "./assets/button-icon-plus.svg";
-import { HeaderButton } from "./components/main/main-header";
-import { CertificatesTableRow } from "./api/api-service";
+import {
+  CertificatesTableRow,
+  PositionsTableRow,
+  TabConfigRecord,
+  TableRow,
+  Tabs,
+} from "./components/types/tab-types";
 
-export enum Tabs {
-  CERTIFICATES = "Certificates",
-  OFFER_LETTERS = "Offer Letters",
-  CONSULTING = "Consulting",
-  POSITIONS = "Positions",
-  SALARIES = "Salaries",
-  EMPLOYEES = "Employees",
-  SYSTEMS = "Systems",
-  ONBOARDING = "Onboarding",
-  USER_TIMELINE = "User Timeline",
-  ISSUES = "Issues",
-  FILINGS = "Filings",
-  OFFERS = "Offers",
-  INTERVIEWS = "Interviews",
-}
-
-export enum Sections {
-  TALENT = "Talent",
-  TALENT_POOL = "Talent Pool",
-  HUMAN_RESOURCES = "Human Resources",
-  SCENARIOS = "Scenarios",
-}
-
-type Tab = {
-  title: Tabs;
-  button: HeaderButton | null;
-  contentType: "table" | null;
-};
-
-const getEmptyTabConfig = (tab: Tabs) => ({
-  title: tab,
+const getEmptyTabConfig = (tab: keyof typeof Tabs) => ({
+  title: Tabs[tab],
   button: null,
   contentType: null,
 });
 
-const emptyConfigs: Partial<Record<Tabs, Tab>> = (
-  Object.values(Tabs) as Tabs[]
-).reduce((acc, tab) => ({ ...acc, [tab]: getEmptyTabConfig(tab) }), {});
+const emptyConfigs: TabConfigRecord = (
+  Object.keys(Tabs) as Array<keyof typeof Tabs>
+).reduce(
+  (acc, tab) => ({ ...acc, [tab]: getEmptyTabConfig(tab) }),
+  <TabConfigRecord>{}
+);
 
-export const tabConfig: Partial<Record<Tabs, Tab>> = {
+export const tabConfig: TabConfigRecord = {
   ...emptyConfigs,
-  [Tabs.CERTIFICATES]: {
+  CERTIFICATES: {
     title: Tabs.CERTIFICATES,
     button: {
       ButtonIcon: ButtonIconPlus,
@@ -54,10 +33,17 @@ export const tabConfig: Partial<Record<Tabs, Tab>> = {
   },
 };
 
-export const tableHeaders: Partial<
-  Record<Tabs, Array<keyof CertificatesTableRow>>
-> = {
-  [Tabs.CERTIFICATES]: [
+export type TableHeaders = {
+  CERTIFICATES: Array<keyof Omit<CertificatesTableRow, "id" | "table">>;
+  POSITIONS: Array<keyof Omit<PositionsTableRow, "id" | "table">>;
+};
+
+export type TableHeadersList =
+  | keyof Omit<CertificatesTableRow, "id" | "table">
+  | keyof Omit<PositionsTableRow, "id" | "table">;
+
+export const tableHeaders: TableHeaders = {
+  CERTIFICATES: [
     "employee",
     "status",
     "geo",
@@ -67,4 +53,5 @@ export const tableHeaders: Partial<
     "date",
     "prefix",
   ],
+  POSITIONS: ["col0", "col1", "col2", "col3", "col4"],
 };

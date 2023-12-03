@@ -8,7 +8,6 @@ import {
 } from "./sidebar-elements";
 import { SidebarContainer } from "./styled";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
-import { Sections, Tabs } from "../../tab-config";
 import { ReactComponent as CertificatesIcon } from "../../assets/sidebar-images/certificates-icon.svg";
 import { ReactComponent as OfferLettersIcon } from "../../assets/sidebar-images/offer-letters-icon.svg";
 import { ReactComponent as ConsultingIcon } from "../../assets/sidebar-images/consulting-icon.svg";
@@ -22,6 +21,7 @@ import { ReactComponent as PositionsIcon } from "../../assets/sidebar-images/pos
 import { ReactComponent as SalariesIcon } from "../../assets/sidebar-images/salaries-icon.svg";
 import { ReactComponent as SystemsIcon } from "../../assets/sidebar-images/systems-icon.svg";
 import { ReactComponent as UserTimelineIcon } from "../../assets/sidebar-images/user-timeline-icon.svg";
+import { Sections, Tabs } from "../types/tab-types";
 
 const badges = {
   COMING_SOON: "coming soon",

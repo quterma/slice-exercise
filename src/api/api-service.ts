@@ -1,27 +1,48 @@
+import {
+  CertificatesTableRow,
+  PositionsTableRow,
+  TableRowsArray,
+  Tables,
+  Tabs,
+} from "../components/types/tab-types";
 import { delay } from "../helpers/helpers";
-import table from "./../api/table.json";
+import certificatesTable from "./../api/certificatesTable.json";
 
-export enum Statuses {
-  PENDING_SIGNATURES = "Pending Signatures",
-  APPROVED_BY_CORP = "Approved By Corp.",
-  OFFERED = "Offered",
-}
+const exampleTable: PositionsTableRow[] = Array.from(Array(100).keys()).map(
+  (rowIndex) => ({
+    col0: `${rowIndex}-0`,
+    col1: `${rowIndex}-1`,
+    col2: `${rowIndex}-2`,
+    col3: `${rowIndex}-3`,
+    col4: `${rowIndex}-4`,
+    table: Tabs.POSITIONS,
+    id: rowIndex,
+  })
+);
 
-export type CertificatesTableRow = {
-  employee: string;
-  geo: string;
-  certificate: string;
-  source: string;
-  plan: string;
-  date: string;
-  prefix: string;
-  status: string;
+const tables: Record<Tables, TableRowsArray> = {
+  CERTIFICATES: certificatesTable as CertificatesTableRow[],
+  POSITIONS: exampleTable,
 };
 
 export const getDataSlice = async (
   pageNumber: number = 0,
-  limit: number
-): Promise<Array<CertificatesTableRow & { id: number }>> => {
+  limit: number,
+  table: Tables
+): Promise<TableRowsArray> => {
   await delay(1000);
-  return table.slice(pageNumber * limit, pageNumber * limit + limit);
+
+  if (table === "CERTIFICATES")
+    return tables.CERTIFICATES.slice(
+      pageNumber * limit,
+      pageNumber * limit + limit
+    );
+
+  if (table === "POSITIONS")
+    return tables.POSITIONS.slice(
+      pageNumber * limit,
+      pageNumber * limit + limit
+    );
+
+  return [];
 };

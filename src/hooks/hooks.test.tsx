@@ -1,6 +1,15 @@
 import "@testing-library/jest-dom";
-import { render, fireEvent, screen } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  screen,
+  renderHook,
+  cleanup,
+} from "@testing-library/react";
 import { useOutsideClick } from "./useOutsideClick";
+import { useDataLoad } from "./useDataLoad";
+import { getDataSlice } from "../api/api-service";
+import { mockData } from "../api/api-service.test";
 
 describe("useOutsideClick", () => {
   type Props = {
@@ -36,3 +45,29 @@ describe("useOutsideClick", () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 });
+
+/* describe("useDataLoad", () => {
+  beforeAll(() => {
+    jest.mock("../api/api-service", () => ({
+      getDataSlice: (pageNumber: number = 0, limit: number) =>
+        mockData.slice(pageNumber, limit),
+    }));
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+    cleanup();
+  });
+
+  test("", async () => {
+    const getDataSlice = (await import("../api/api-service")).getDataSlice;
+    const test1 = getDataSlice(0, 3);
+    console.log(test1);
+
+    const { result } = renderHook(() => useDataLoad(0, 10));
+    // console.log("result", result);
+
+    // expect(getDataSlice).toHaveBeenCalledTimes(1);
+    expect(result.current).toBeUndefined();
+  });
+}); */

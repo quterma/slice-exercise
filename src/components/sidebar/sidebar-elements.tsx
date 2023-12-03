@@ -22,8 +22,9 @@ import {
 } from "./styled";
 import { ReactComponent as TriangleIcon } from "../../assets/sidebar-images/triangle.svg";
 import { ReactComponent as LockIcon } from "../../assets/sidebar-images/lock.svg";
-import { Tabs } from "../../tab-config";
-import { FunctionComponent, SVGProps, useState } from "react";
+import { useState } from "react";
+import { SectionItemType } from "../types/component-types";
+import { Tabs } from "../types/tab-types";
 
 type SidebarHeaderProps = {
   title: string;
@@ -58,12 +59,6 @@ export const SidebarBurger = ({
   </StyledBurger>
 );
 
-export type SectionItemType = {
-  Icon: FunctionComponent<SVGProps<SVGSVGElement>>;
-  tab: Tabs;
-  setTab: () => void;
-  badge?: string;
-};
 type SidebarSectionProps = {
   open: boolean;
   title: string;

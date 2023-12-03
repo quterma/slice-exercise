@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const createTable = (numRows) => {
+const createCertificatesTable = (numRows) => {
   const statuses = ["Pending Signatures", "Approved By Corp.", "Offered"];
 
   return new Array(numRows)
@@ -17,12 +17,13 @@ const createTable = (numRows) => {
       ...row,
       id,
       status: statuses[Math.floor(Math.random() * statuses.length)],
+      table: "CERTIFICATES",
     }));
 };
 
 fs.writeFile(
-  "src/api/table.json",
-  JSON.stringify(createTable(200)),
+  "src/api/certificatesTable.json",
+  JSON.stringify(createCertificatesTable(200)),
   "utf8",
   (err) => {
     if (err) throw err;

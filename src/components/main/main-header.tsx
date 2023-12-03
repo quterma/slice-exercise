@@ -1,6 +1,6 @@
-import { FunctionComponent, SVGProps } from "react";
 import styled from "styled-components";
 import { Button, constants } from "../shared/styled";
+import { HeaderButton } from "../types/tab-types";
 
 const Container = styled.div`
   display: flex;
@@ -20,12 +20,6 @@ const Title = styled.h1`
   text-align: left;
   color: ${constants.main.blue};
 `;
-
-export type HeaderButton = {
-  ButtonIcon: FunctionComponent<SVGProps<SVGSVGElement>>;
-  buttonTitle: string;
-  handleClick: () => void;
-};
 
 type Props = {
   title: string;

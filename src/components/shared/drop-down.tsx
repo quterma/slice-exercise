@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { constants } from "./styled";
 import { ReactComponent as DropDownButtonIcon } from "../../assets/sidebar-images/menu-icon-arrow-down.svg";
-import { useState, FunctionComponent, SVGProps } from "react";
+import { useState } from "react";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { DropDownMenuItem } from "../types/component-types";
 
 const StyledDropDownMenu = styled.div<{ open: boolean }>`
   position: absolute;
@@ -49,11 +50,6 @@ const StyledDropDownMenuItem = styled.div`
   }
 `;
 
-export type DropDownMenuItem = {
-  label: string | number;
-  onClick: () => void;
-  Icon: FunctionComponent<SVGProps<SVGSVGElement>>;
-};
 type DropDownMenuProps = {
   open: boolean;
   items: DropDownMenuItem[];
@@ -116,7 +112,7 @@ const DropDownButton = ({ open, setOpen }: DropDownButtonProps) => {
   );
 };
 
-const DropDownContainer = styled.div`
+export const DropDownContainer = styled.div`
   position: relative;
   top: -2px;
   left: 12px;
